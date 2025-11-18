@@ -1,5 +1,3 @@
----
-
 # 100B Jobs — Candidate Selection Dashboard
 
 This application processes thousands of job applicants and automatically selects the **top 5 candidates**, ensuring strong **role-based fit**, **balanced skills**, and **team diversity**.
