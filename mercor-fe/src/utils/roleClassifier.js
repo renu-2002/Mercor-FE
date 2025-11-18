@@ -1,5 +1,3 @@
-// roleClassifier.js
-
 import { scoreCandidatePerRole } from "./scoring";
 
 export function classifyCandidates(candidates) {

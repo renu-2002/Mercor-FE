@@ -1,7 +1,3 @@
-Absolutely — here is a **clean, polished, ready-to-paste `README.md` snippet** in proper Markdown formatting.
-
-Just copy it directly into your `README.md`.
-
 ---
 
 # 100B Jobs — Candidate Selection Dashboard
