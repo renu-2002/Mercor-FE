@@ -1,70 +1,139 @@
-# Getting Started with Create React App
+Absolutely — here is a **clean, polished, ready-to-paste `README.md` snippet** in proper Markdown formatting.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Just copy it directly into your `README.md`.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+# 100B Jobs — Candidate Selection Dashboard
 
-### `npm start`
+This application processes thousands of job applicants and automatically selects the **top 5 candidates**, ensuring strong **role-based fit**, **balanced skills**, and **team diversity**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The system evaluates every candidate across six roles:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* **Backend**
+* **Frontend**
+* **Fullstack**
+* **Data / ML**
+* **DevOps**
+* **Product**
 
-### `npm test`
+Each candidate is scored for every role using a **linear 14 → 1 weighted skill scoring system**, and then assigned to the role where they score the highest.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## How Candidate Scoring Works
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Each candidate receives a score for **each role**.
+The final score is calculated using **four components**, weighted to match what real companies value most.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **1️⃣ Skill Weightage (≈ 70% impact)**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Each role has a list of skills ranked from **14 → 1**, where:
 
-### `npm run eject`
+* **14** = most important skill for that role
+* **1** = least important but still relevant
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Example (Backend weights):
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+python = 14
+java = 13
+node = 12
+go = 11
+django = 10
+flask = 9
+rest = 8
+graphql = 7
+microservices = 6
+postgres = 5
+mysql = 4
+mongodb = 3
+docker = 2
+kubernetes = 1
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This ensures fair, predictable scoring across all roles.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### **2️⃣ Experience Bonus (≈ 20% impact)**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Each work experience entry adds:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
++4 points per job
+```
 
-### Code Splitting
+More experience → higher score.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+### **3️⃣ Education Bonus (≈ 5–8% impact)**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Top universities add extra points:
 
-### Making a Progressive Web App
+* Top 50 → +6 points
+* Top 25 → +4 additional points
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+Dynamic Salary Normalization (≈ 2–5%)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Instead of hardcoding a salary ceiling, the app dynamically finds the highest expected salary in the dataset and uses it for normalization.
 
-### Deployment
+bonus = (MAX_SALARY_IN_DATASET − candidateSalary) / 10000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Final Score Formula
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+TotalScore(role) = SkillScore(role) + ExperienceBonus + EducationBonus + SalaryBonus
+```
+
+The role with the **highest score** becomes the candidate’s **best-fit role**.
+
+---
+
+## How the Final 5 Candidates Are Selected
+
+1. Every candidate is classified into the role where they score highest.
+2. Each role bucket is sorted by score.
+3. The system selects one top candidate from each role:
+
+    * 1 Backend
+    * 1 Frontend
+    * 1 Fullstack
+    * 1 Data / ML
+    * 1 DevOps
+4. Duplicate emails are not allowed.
+5. If a role has no strong candidates, a fallback **general** bucket is used.
+
+This ensures the final output is a **balanced 5-person team**, each representing a different role.
+
+---
+
+## 🗂 Project Structure
+
+```
+src/
+│
+├── App.js                # File upload + end-to-end candidate selection
+├── utils/
+│   ├── scoring.js            # Role-based linear 14→1 scoring logic
+│   ├── roleClassifier.js
+├── CandidateTable.js     # Displays final selected candidates
+```
+
+---
+
+## 🛠 Running the Project
+
+```
+npm install
+npm start
+```
+
+Upload `form-submissions.json` in the app to see results.
+
+---
